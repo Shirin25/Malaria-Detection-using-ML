@@ -1,0 +1,129 @@
+{% extends 'patient_base.html' %}
+{% block head %}
+<style >
+*{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    background-image: url({{url_for('static',filename = 'three.jpg')}});
+    background-position: center;
+    background-size: cover;
+    font-family: sans-serif;
+    margin-top: 40px;
+}
+.container
+{
+    width:800px;
+    background-color: rgb(0,0,0,0.6);
+    margin: auto;
+    color: #FFFFFF;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    border-radius: 15px 15px 0px 0px;
+}
+textarea {
+  width: 700px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+input[type=text]{
+  width: 700px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+.logo img
+{
+    width: 150px;
+    height: auto;
+    float: left;
+}
+select{
+  width: 200px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+input[type=submit]
+{
+    background-color: #3BAF9F;
+    display:block;
+    margin: 20px 0px 0px 20px;
+    text-align: center;
+    border-radius: 12px;
+    border:2px solid #366473;
+    padding: 14px 110px;
+    outline: none;
+    color:white;
+}
+input[type=submit]:hover {
+  background-color: #45a049;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<div class = "row">
+    <div class = "col-lg-4"></div>
+    <div class = "col-lg-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for cat,msg in messages%}
+            <div style = "padding-top: 5px;padding-bottom: 5px; border-radius: 3px;" class = {{ cat }}><center><p style="font-size: 15px;">{{ msg }}</p></center></div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class = "col-lg-4"></div>
+</div>
+<div class="logo">
+            <img src={{url_for('static',filename = 'logo.jpg')}}>
+        </div>
+<form action="#" method = "POST">
+  <div class="container">     
+  
+  <h3><u>MEDICAL DETAILS</u></h3><br>
+      
+        <label for="allergies">Allergies</label><br>
+        <textarea id="allergies" name="allergies" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="immunizations">Immunizations</label><br>
+        <textarea id="immunizations" name="immunizations" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="conditions">Conditions</label><br>
+        <textarea id="conditions" name="conditions" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="observations">Observations</label><br>
+        <textarea id="observations" name="observations" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="procedures">Procedures</label><br>
+        <textarea id="procedures" name="procedures" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="careplans">Careplans</label><br>
+        <textarea id="careplans" name="careplans" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="medications">Medications</label><br>
+        <textarea id="medications" name="medications" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <label for="current">Current</label><br>
+        <textarea id="current" name="current" placeholder="Write something.." style="height:200px"></textarea><br>
+        
+        <center><input type="submit" value="Submit"><br></center>
+    
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,66 @@
+{%extends "patient_base.html"%}
+
+{% block body %}
+<center><h2>PATIENT PAGE</h2></center><br>
+<!-- <a href= {{ url_for('logout') }}><button class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a> -->
+<br><br>
+<center>
+    <div class = "row pat_content container" style="background-color: rgba(255,255,255,0.8);">
+        <div class=" col-lg-8 col-sm-12">
+            <table style="width: 100%;">
+                <tr>
+                    <td><b>USER ID:</b></td>
+                    <td>{{ session["user_id"] }}</td>
+                    <td><b>NAME:</b></td>
+                    <td>{{ patient["NAME"] }}</td>
+                </tr>
+                <tr>
+                    <td><b>AGE:</b></td>
+                    <td>{{ patient["AGE"]}} years</td>
+                    <td><b>GENDER:</b></td>
+                    <td>{{ patient["GENDER"]}}</td>
+                </tr>
+                <tr>
+                    <td><b>HEIGHT:</b></td>
+                    <td>{{ patient["HEIGHT"]}} cm</td>
+                    <td><b>WEIGHT:</b></td>
+                    <td>{{ patient["WEIGHT"]}} kg</td>
+                </tr>
+            </table>
+            </div>
+    </div>
+</center>
+<div class="row pat_content"></div><br>
+<center><h3><b>MEDICAL RECORDS</b></h3></center>
+{% for rec in records %}
+
+<div class="row pat_content" style="background-color: rgba(255,255,255,0.8);">
+    
+    <div class="col-lg-6 col-sm-12">
+        <b>DATE:</b> {{ rec['DATE_OF_CHECK'].strftime("%d %B, %Y") }} <br><br>
+        <table style="width: 100%;">
+            <tr>
+                <td><b>BP (SYS):</b></td>
+                <td>{{ rec["BP_SYS"] }} mmHg</td>
+                <td><b>BP (DIA):</b></td>
+                <td>{{ rec["BP_DIA"] }} mmHg</td>
+            </tr>
+            <tr>
+                <td><b>SUGAR (BF):</b></td>
+                <td>{{ rec["SUGAR_BF"] }} mg/dL</td>
+                <td><b>SUGAR (AF):</b></td>
+                <td>{{ rec["SUGAR_AF"] }} mg/dL</td>
+            </tr><tr>
+                <td><b>PULSE:</b></td>
+                <td>{{ rec["PULSE"] }} bpm</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6 col-sm-12"></div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "patient_base.html" %}
+{% block head %}
+
+{% endblock %}
+{% block body %}
+<div class="row" style="font-size: 18px;">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6 form_inp">
+        {% if(card == 1) %}
+            <div class="error"><br><center><b>YOU HAVE A HIGH RISK OF CONTRACTING A CARDIO VASCULAR DISEASE</b></center><br></div><br>
+            <p  style="font-size: 15px">PLEASE CONSULT A DOCTOR AS SOON AS POSSIBLE. FOR MORE INFO ON CARDIO VASCULAR DISEASES, <b><a href="https://www.heart.org/en/health-topics/heart-attack/understand-your-risks-to-prevent-a-heart-attack" target="_blank">CLICK HERE</a></b></p><br>
+        {% else %}
+            <div class="success"><br><center><b>YOU HAVE A LOW RISK OF CONTRACTING A CARDIO VASUCULAR DISEASE</b></center><br></div><br>
+        {% endif %}
+
+        {% if(diab == 1) %}
+            <div class="error"><br><center><b>BASED ON YOUR INPUT, YOU MAY HAVE DIABETES</b></center><br>
+            </div><br>
+            <p  style="font-size: 15px">PLEASE CONSULT A DOCTOR AS SOON AS POSSIBLE. FOR MORE INFO ON DIABETES, <b><a href="https://www.healthline.com/health/diabetes" target="_blank">CLICK HERE</a></b></p><br>
+            <br>
+
+        {% else %}
+            <div class="success"><br><center><b>BASED ON YOUR INPUT, YOU MAY NOT HAVE DIABETES</b></center><br>
+                </div><br>
+        {% endif %}
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+
+{% endblock %}
