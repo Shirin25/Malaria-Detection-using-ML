@@ -1,5 +1,16 @@
-<form action="{{url_for('predict')}}" method="post" enctype="multipart/form-data">
-    Select Mammography image to upload:
-    <input type="file" name="image" id="image">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
+{% extends "patient_base.html" %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4" style="background-color: white;padding: 10px;">
+        <center>
+            <form action="{{url_for('predict')}}" method="post" enctype="multipart/form-data">
+                <b>Select Mammography Image to Upload:</b>
+                <input type="file" name="image" id="image"><br><br>
+                <button type="submit" name="submit" class="btn btn-primary">UPLOAD IMAGE</button>
+            </form>
+        </center>
+    </div>
+    <div class="col-lg-4"></div>
+</div>
+{% endblock %}

@@ -267,12 +267,12 @@ def value_based_prediction():
             ypred = cardio_model.predict(df)
             if(ypred[0]>(0.5)):
                 card = 1
-            if(card):
-                s = "RISK"
-            else:
-                s = "NO RISK"
+            elif(ypred[0]>(0.3)):
+                card = 2
+
+            prob = int(ypred[0]*100)
             # return "<h1>"+str(card)+""+str(diab)+"</h1>"
-            return render_template("result_vbp.html",card = card,diab = diab)
+            return render_template("result_vbp.html",card = card,diab = diab,prob=prob)
 
 
         return render_template("p_value_pred.html")
@@ -328,7 +328,7 @@ def predict():
         image = request.files["image"]
         image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
         test_datagen = ImageDataGenerator(rescale=1. / 255)
-        test_generator = test_datagen.flow_from_directory("D:/Desktop/GRM/GRM/pred", target_size=(224, 224), batch_size=5, class_mode='categorical', shuffle=False)        
+        test_generator = test_datagen.flow_from_directory("./pred", target_size=(224, 224), batch_size=5, class_mode='categorical', shuffle=False)        
         pred=my_model.predict_generator(test_generator, steps=len(test_generator), verbose=1)
         os.remove(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))        
         
@@ -369,7 +369,7 @@ def predict():
         #print('Classifying..')
     #c=request.form#.get("Weight")"""
         if pred[0][0]>=pred[0][1]:
-            s="begnin"
+            s="benign"
         else :
             s="malignant"
            
