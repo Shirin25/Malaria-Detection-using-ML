@@ -106,9 +106,49 @@ def logout():
     session.pop("login",False)
     session.pop("cat","")
     session.pop("user_id",-1)
-    flash("Successfully Logged Out!")
+    flash("Successfully Logged Out!",category="success")
     return redirect(url_for('login'))
 
+
+@app.route("/register",methods = ["GET","POST"])
+def register():
+    if(request.method == "POST"):
+        conn = ibm_db.connect(dsn,"","")
+        username = request.form["username"]
+        sql = "select * from users where username ='"+username+"';"
+        res = ibm_db.exec_immediate(conn,sql)
+        k = ibm_db.fetch_assoc(res)
+        if(k):
+            flash("Username Already Exists")
+            render_template("register.html")
+
+        else:
+            name = request.form["name"]
+            age = int(request.form["age"])
+            gender = request.form["gender"]
+            height = int(request.form["height"])
+            weight = int(request.form["weight"])
+            password = request.form["password"]
+            c_pass = request.form["confirm-password"]
+            if(password == c_pass):
+                sql = "insert into users(username,password,category) values('"+username+"','"+password+"','p');"
+                res = ibm_db.exec_immediate(conn,sql)
+                sql = "select * from users where username ='"+username+"';"
+                res = ibm_db.exec_immediate(conn,sql)
+                k = ibm_db.fetch_assoc(res)
+                user_id = k["USER_ID"]
+                sql = "insert into patient(user_id ,name,age,gender,height,weight) values ("+str(user_id)+",'"+str(name)+"',"+str(age)+",'"+str(gender)+"',"+str(height)+","+str(weight)+");"
+                res = ibm_db.exec_immediate(conn,sql)
+                flash("Registered Successfully! Please remember your User ID - "+str(user_id),category="success")
+                return redirect(url_for("login"))
+
+            else:
+                flash("Passwords do not match !",category="error")
+                return render_template("register.html")
+
+
+
+    return render_template("register.html")
 
 ##############################################
 ##### PATIENT ################################
