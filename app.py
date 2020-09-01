@@ -312,6 +312,14 @@ def value_based_prediction():
 
             prob = int(ypred[0]*100)
             # return "<h1>"+str(card)+""+str(diab)+"</h1>"
+            conn = ibm_db.connect(dsn,"","")
+            from datetime import datetime
+            now = datetime.now()
+
+            formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+            lis=[session["user_id"],formatted_date,age,weight,height,ap_hi,ap_lo, chol, gluc, gender, smoke, alco,active, enm, csd, dob, gd, dms,card,diab]
+            sql = "insert into history values %r;"%(tuple(lis),)
+            res = ibm_db.exec_immediate(conn,sql)
             return render_template("result_vbp.html",card = card,diab = diab,prob=prob)
 
 
@@ -416,7 +424,26 @@ def predict():
         
         return render_template('result2.html',result=s)   # show result in result.html
 
-    
+@app.route("/patient/history/",methods = ["POST","GET"])
+def history():
+    conn = ibm_db.connect(dsn,"","")
+    """
+    sql = "select * from history where PATIENT_ID=10003;"
+    res = ibm_db.exec_immediate(conn,sql)
+    #while ibm_db.fetch_row(res) != False:
+        #print(ibm_db.result(res, 0))
+    patient = ibm_db.fetch_assoc(res)
+    """
+    sql = "select * from history where PATIENT_ID ="+str(session["user_id"])+";"
+    res = ibm_db.exec_immediate(conn,sql)
+    recs = []
+    k = ibm_db.fetch_assoc(res)
+        
+    while(k):
+        recs.append(k)
+        k = ibm_db.fetch_assoc(res)
+    ibm_db.close(conn)    
+    return render_template('history.html', records=recs)    
 ##############################################
 ##### DOCTOR   ###############################
 ##############################################
