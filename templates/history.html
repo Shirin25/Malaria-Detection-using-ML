@@ -1,0 +1,36 @@
+{% extends "patient_base.html" %}
+{% block body %}
+<center><h3><b>MEDICAL RECORDS</b></h3></center>
+{% for rec in records %}
+
+<div class="row pat_content" style="background-color: rgba(255,255,255,0.8);">
+    
+    <div class="col-lg-6 col-sm-12">
+        <b>DATE:</b> {{ rec['DATE_OF_CHECK'].strftime("%d %B, %Y") }} <br><br>
+        <table style="width: 100%;">
+            <tr>
+                <td><b>Age:</b></td>
+                <td>{{ rec["AGE"] }} years</td>
+                <td><b>Weight:</b></td>
+                <td>{{ rec["WEIGHT"] }} kg</td>
+            </tr>
+            <tr>
+                <td><b>SMOKE:</b></td>
+                <td>{{ rec["SMOKE"] }} </td>
+                <td><b>ALCOHOL:</b></td>
+                <td>{{ rec["ALCO"] }} </td>
+            </tr><tr>
+                <td><b>DIAB_PRED:</b></td>
+                <td>{{ rec["DIAB_PRED"] }} </td>
+		<td><b>CVD_PRED:</b></td>
+                <td>{{ rec["CVD_PRED"] }} </td>
+                
+      
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6 col-sm-12"></div>
+</div>
+
+{% endfor %}
+{% endblock %}
