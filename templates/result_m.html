@@ -1,0 +1,21 @@
+{% extends "patient_base.html" %}
+{% block body %}
+{% if(result == 1) %}
+<div class = "row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6"><div class="error"><br><center><b>RESULT - POSITIVE</b></center><br>
+    </div><br></div>
+    <div class="col-lg-3"></div>
+</div>
+    
+    
+
+{% else %}
+    <div class = "row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6"><div class="success"><br><center><b>RESULT - NEGATIVE</b></center><br>
+        </div><br></div>
+        <div class="col-lg-3"></div>
+    </div>
+{% endif %}
+{% endblock %}
