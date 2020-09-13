@@ -443,7 +443,39 @@ def history():
         recs.append(k)
         k = ibm_db.fetch_assoc(res)
     ibm_db.close(conn)    
-    return render_template('history.html', records=recs)    
+    return render_template('history.html', records=recs)
+@app.route("/patient/mental_health/",methods = ["POST","GET"])
+def mental_health():
+    if(check_correct_login("p")):
+        if(request.method == "POST"):
+            Intro1 = request.form["Intro1"]
+            Intro2 = request.form["Intro2"]
+            Intro3 = request.form["Intro3"]
+            Intro4 = request.form["Intro5"]
+            Intro5 = request.form["Intro4"]
+            Intro6 = request.form["Intro6"]
+            Intro7 = request.form["Intro7"]
+            Intro8 = request.form["Intro8"]
+            Intro9 = request.form["Intro9"]
+            Intro10 = request.form["Intro10"]
+            Intro11 = request.form["Intro11"]
+            Intro12= request.form["Intro12"]
+            Intro13 = request.form["Intro13"]
+            Intro14 = request.form["Intro14"]
+            prediction = nb.predict(vectorizer.transform([Intro1]))
+            if prediction == 1:
+                result="Positive"
+            elif prediction == 0:
+                result="Neutral"
+            elif prediction == -1:
+                result= "Negative"
+            else:
+                result="Nothing"
+        
+            
+
+            return render_template('result_m.html', result=prediction)
+    return render_template('mental_health.html')
 ##############################################
 ##### DOCTOR   ###############################
 ##############################################
