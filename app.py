@@ -29,6 +29,10 @@ from keras.preprocessing.image import array_to_img, img_to_array
 from base64 import b64encode
 from keras.preprocessing.image import ImageDataGenerator
 
+#import Cloudant
+from cloudant.client import Cloudant
+from cloudant.database import CloudantDatabase
+from datetime import date
 
 init_Base64 = 21
 import io
@@ -230,15 +234,40 @@ def patient_details():
         careplans = request.form["careplans"]
         medications = request.form["medications"]
         current = request.form["current"]
-        flash("Patient Details Successfully Updated !!!",category="success")
+        #flash("Patient Details Successfully Updated !!!",category="success")
 
         ## code to store this info in the database
-
-        flash("Data Added Successfully !")
-        return redirect(url_for("p_details"))
+	username= "e169e943-3ef0-47be-9cc8-7a6784a80114-bluemix"
+        apikey= "HAltxJaD5Sr4VsbAVB4-rYLfWdrWOkW0fWuqzQFP_Ra_"
+        client=Cloudant.iam(username,apikey,connect=True)
         
+        db_name="patient_details"
+        p_details=CloudantDatabase(client,db_name)
+        
+        date_v=str(date.today())
+        encounter_id=str(session["user_id"])+'_'+date_v
+        if p_details.exists():
+            
+            patient_document={
+                    "allergies":allergies,
+                    "immunizations":immunizations,
+                    "observations":observations,
+                    "procedures":procedures,
+                    "careplans":careplans,
+                    "medications":medications,
+                    "current":current,
+                    "encounter_id":encounter_id,
+                    "date":date_v
+                    }
+            p_details.create_document(patient_document)
+        #flash("Data Added Successfully !")
+        client.disconnect()
+        flash("Patient Details Successfully Updated !!!",category="success")
 
+        return redirect(url_for("patient_details"))
+        
     return render_template("p_details.html")
+
 
 @app.route("/patient/value_based_prediction/",methods = ["POST","GET"])
 def value_based_prediction():
