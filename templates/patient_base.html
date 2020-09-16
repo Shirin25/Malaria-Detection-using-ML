@@ -49,23 +49,23 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <!--<a class="navbar-brand" href="#">IBM</a>-->
-      <a class="navbar-brand" href="#"><img src={{url_for('static',filename = 'IBM-512.png')}} height=100px width=150px></a>
+      <a class="navbar-brand" href="#">IBM</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href= {{ url_for('p_home') }}><b>HOME</b></a></li>
-        <li><a href= {{ url_for('patient_details') }}><b>ADD DETAILS</b></a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>HEALTH CHECKUP</b><span class="caret"></span></a>
+      <li><a href= {{ url_for('p_home') }}>HOME</a></li>
+      <li><a href= {{ url_for('patient_details') }}>ADD DETAILS</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HEALTH CHECKUP<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href= {{ url_for('image_based_prediction') }}><b>IMAGE BASED PREDICTION</b></a></li>
-            <li><a href = {{ url_for('value_based_prediction') }}><b>VALUE BASED PREDICTION</b></a></li>
+          <li><a href= {{ url_for('image_based_prediction') }}>IMAGE BASED PREDICTION</a></li>
+          <li><a href = {{ url_for('value_based_prediction') }}>VALUE BASED PREDICTION</a></li>
         </ul>
       </li>
-        <li><a href={{ url_for('news') }}><b>LATEST NEWS</b></a></li>
-        <li><a href="#"><b>HISTORY</b></a></li>
+      <li><a href={{ url_for('news') }}>LATEST NEWS</a></li>
+      <li><a href={{ url_for('history') }}>HISTORY</a></li>
+	<li><a href={{ url_for('mental_health') }}>Mental Health</a></li>	
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href= {{ url_for('logout') }}><span class="glyphicon glyphicon-log-out"></span><b> Logout</b></a></li>
+      <li><a href= {{ url_for('logout') }}><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
   </ul>
   </div>
 </nav>
