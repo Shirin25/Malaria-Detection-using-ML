@@ -1,6 +1,0 @@
-{%extends "base.html"%}
-{% block body %}
-<center><h2>HOSPITAL STAFF PAGE</h2></center>
-<h3>Welcome <b>{{ session["username"] }}</b></h3>
-<form action="{{url_for('logout')}}" method="POST"><button type="submit" class="btn btn-primary">LOGOUT</button></form>
-{% endblock %}
